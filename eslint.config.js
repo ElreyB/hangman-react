@@ -7,6 +7,7 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 import typescriptParser from '@typescript-eslint/parser';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+import vitestPlugin from 'eslint-plugin-vitest';
 
 export default [
   {
@@ -51,11 +52,38 @@ export default [
       'prettier',
     ],
     rules: {
+      ...typescriptPlugin.configs.recommmended.rules,
       'prettier/prettier': 'error',
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-unused-vars': ['warn'],
+
       // Add any additional rules here
+    },
+  },
+  {
+    files: ['**/*.test.ts', '**/*.test.tsx'],
+    plugins: {
+      vitest: vitestPlugin,
+    },
+    languageOptions: {
+      globals: {
+        // Vitest global variables
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeAll: 'readonly',
+        beforeEach: 'readonly',
+        afterAll: 'readonly',
+        afterEach: 'readonly',
+        vi: 'readonly',
+      },
+    },
+    rules: {
+      // Vitest recommended rules
+      ...vitestPlugin.configs.recommended.rules,
+      // Add or override rules here
     },
   },
 ];

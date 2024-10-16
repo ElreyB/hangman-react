@@ -9,5 +9,6 @@
     "paths": {
       "test-utils": ["./utils/test-utils"]
     }
-  }
+  },
+    "types": ["vitest/globals", "vite/client"]
 }
